@@ -1,6 +1,6 @@
 ---
 name: tax-return-review
-description: Comprehensive tax return review system for Forms 1040, 1065, and 1120S. Identifies return type, applies form-specific checklist, and provides detailed review with actionable feedback on errors, compliance issues, and planning opportunities.
+description: Comprehensive tax return review system for Forms 1040, 1065, and 1120S. Identifies return type, applies detailed procedural workflows with step-by-step verification instructions, and provides actionable feedback on errors, compliance issues, and planning opportunities.
 license: Complete terms in LICENSE.txt
 ---
 
@@ -8,9 +8,11 @@ license: Complete terms in LICENSE.txt
 
 ## Overview
 
-This skill provides comprehensive review of tax returns (Forms 1040, 1065, and 1120S) by automatically identifying the form type, applying the appropriate checklist, and delivering a structured review with checkmarks for compliant items and revision notes for issues found.
+This skill provides comprehensive review of tax returns (Forms 1040, 1065, and 1120S) by automatically identifying the form type, following detailed **procedural workflows** (not simple checklists), and delivering a structured review with verification results and specific correction instructions.
 
-**Primary Use Case**: Accountants upload a completed tax return PDF, and the skill performs a systematic review against best practices and common error patterns, returning a checklist showing what's correct (✓) and what needs revision (⚠).
+**Primary Use Case**: Accountants upload a completed tax return PDF, and the skill executes systematic workflow procedures with explicit step-by-step instructions for each verification, returning detailed findings showing what's correct (✓), what needs revision (⚠), and exactly how to fix issues.
+
+**Key Difference**: These are **workflow guides** with explicit procedures (e.g., "Locate Line 1, extract Box 1 from each W-2, sum amounts, verify equals Line 1"), not simple topic checklists.
 
 ---
 
@@ -42,12 +44,12 @@ When a tax return is uploaded, immediately analyze the document to identify:
 
 ---
 
-### Step 2: Apply Form-Specific Checklist
+### Step 2: Load and Execute Form-Specific Workflow
 
-Based on form identification, load and apply the appropriate checklist:
+Based on form identification, load and execute the appropriate procedural workflow:
 
 #### For Form 1040 (Individual Returns)
-Use the comprehensive checklist from **guidelines/1040.md** covering:
+Follow the comprehensive workflow from **reference/1040.md** with **9 detailed procedural steps** covering:
 - Initial data verification (SSN, filing status, dependents)
 - Income verification (W-2s, 1099s, K-1s, business income, capital gains)
 - Deduction review (standard vs itemized, Schedule A items, above-the-line)
@@ -57,14 +59,20 @@ Use the comprehensive checklist from **guidelines/1040.md** covering:
 - High-risk audit triggers
 - Common errors to avoid
 
-**Key Focus Areas**:
-- K-1 items properly flowing through (Box 1 → Schedule E, Box 5 → Schedule B, etc.)
-- Basis and passive activity limitations applied
-- NIIT calculated if MAGI exceeds thresholds ($200k single, $250k MFJ)
-- Estimated tax penalty calculated or safe harbor documented
+**Workflow Procedures Include**:
+- **Step 1.1**: Explicit taxpayer identification verification (locate name, verify SSN format, compare to prior year)
+- **Step 2.1**: W-2 reconciliation procedure (extract Box 1 from each W-2, sum, verify equals Line 1)
+- **Step 2.5**: K-1 box-by-box placement verification with decision trees
+  - Box 1 → Schedule E Part II (NOT Schedule C - common error!)
+  - Box 5 → Schedule B (forces Schedule B even if <$1,500)
+  - Complete placement guide for all 20 K-1 boxes
+- **Basis limitation workflow**: Calculate available basis, test loss against basis, suspend excess
+- **Passive activity decision trees**: 7 material participation tests with if-then logic
+- **NIIT calculation procedure**: Step-by-step MAGI threshold test, identify investment income, calculate 3.8% tax
+- **Pass/Fail criteria** for each verification step
 
 #### For Form 1065 (Partnership Returns)
-Use the comprehensive checklist from **guidelines/1065.md** covering:
+Follow the comprehensive workflow from **reference/1065.md** with **9 detailed procedural steps** covering:
 - Entity information verification
 - Book-tax reconciliation (Schedule M-1/M-3)
 - Balance sheet (Schedule L) and capital reconciliation (Schedule M-2)
@@ -75,15 +83,23 @@ Use the comprehensive checklist from **guidelines/1065.md** covering:
 - Complex issues (disguised sales, hot assets, §704(c), debt allocation)
 - State filing requirements
 
-**Key Focus Areas**:
-- Capital accounts reconcile to Schedule L equity
-- K-1 liabilities total to balance sheet liabilities
-- Guaranteed payments properly classified
-- Passive vs non-passive activity designation correct
-- At-risk and basis limitations applied
+**Workflow Procedures Include**:
+- **Step 2.1**: Schedule M-1 line-by-line reconciliation procedure (book income + adjustments = taxable income)
+- **Step 2.4**: Schedule M-2 capital account flow verification
+  - Beginning (ties to prior) + contributions + income - distributions - losses = ending (ties to Schedule L Line 21)
+  - Explicit formula with each component verified
+- **Step 5.1**: Partner capital account reconciliation for each partner with calculation worksheet
+- **Step 5.3**: K-1 summation verification procedure
+  - For EACH line: Sum all K-1s must equal Schedule K
+  - Example: All K-1 Box 1 amounts totaled = Schedule K Line 1
+- **Step 6.1**: Disguised sales testing (2-year rule with presumptions)
+- **Step 6.2**: Hot assets identification and ordinary income calculation
+- **Step 6.3**: §704(c) property tracking with three allocation methods
+- **Step 6.4**: Liability allocation procedures (recourse: who guarantees? nonrecourse: profit-sharing ratio)
+- **Pass/Fail criteria** and verification formulas for each step
 
 #### For Form 1120S (S Corporation Returns)
-Use the comprehensive checklist from **guidelines/1120S.md** covering:
+Follow the comprehensive workflow from **reference/1120S.md** with **10 detailed procedural steps** covering:
 - S Corporation status verification
 - Book-tax reconciliation (Schedule M-1/M-3)
 - AAA account tracking (Schedule M-2)
@@ -97,18 +113,38 @@ Use the comprehensive checklist from **guidelines/1120S.md** covering:
 - Built-in gains tax (if former C corp)
 - State compliance
 
-**Key Focus Areas**:
-- **Reasonable compensation for officer-shareholders** (most common IRS issue)
-- AAA account properly maintained
-- Basis limitations applied to losses
-- 2% shareholder health insurance in W-2 Box 1
-- One class of stock requirement maintained
+**Workflow Procedures Include**:
+- **Step 1.3**: One class of stock verification
+  - Distribution pro-rata test with calculation
+  - Debt vs equity factor analysis (maturity date, interest rate, payments, subordination)
+  - Disproportionate distribution detection
+- **Step 2.2**: AAA account step-by-step calculation
+  - Beginning + income (ordinary + separately stated) - distributions (limited to AAA) - losses = ending
+  - Critical rule: AAA can go negative from losses but NOT from distributions
+  - Distribution ordering: AAA → PTI → E&P → Basis → Gain
+- **Step 3**: Reasonable compensation analysis (MOST CRITICAL FOR S CORPS)
+  - Multi-factor test with specific questions to ask
+  - **Four calculation methodologies**:
+    1. 60/40 rule (wages ≥ 40% of income)
+    2. Market-based approach (BLS data for occupation + location)
+    3. Employee comparison method
+    4. Use highest result (most conservative)
+  - Risk thresholds: ✓ OK (>50% of income), ⚠ Review (30-50%), 🔴 High Risk (<30%)
+- **Step 4.1**: 2% shareholder health insurance exact treatment
+  - Procedure: In W-2 Box 1 (YES), NOT in Boxes 3 & 5 (NO), S Corp deducts, shareholder claims Schedule 1
+  - Step-by-step verification for each 2% shareholder
+- **Step 6**: Shareholder basis tracking with proper ordering
+  - Increases: income items + contributions
+  - Decreases (in order): distributions → non-deductible expenses → depletion → losses
+  - Basis cannot go negative; suspend excess losses
+- **Step 7**: Built-in gains tax calculation for former C Corps within 5-year recognition period
+- **Pass/Fail criteria** and specific correction procedures for each step
 
 ---
 
 ### Step 3: Systematic Review Execution
 
-Review the uploaded return systematically by:
+Review the uploaded return systematically by following each workflow procedure:
 
 **3.1 Document Analysis**
 - Extract all numerical data from forms
@@ -116,12 +152,18 @@ Review the uploaded return systematically by:
 - Note any missing schedules or forms that should be present
 - Review for mathematical accuracy
 
-**3.2 Checklist Application**
-Work through each checklist item and categorize as:
-- **✓ VERIFIED** - Item is correct and compliant
-- **⚠ NEEDS REVIEW** - Issue identified requiring revision
-- **? UNABLE TO VERIFY** - Insufficient information in uploaded document
-- **N/A** - Not applicable to this return
+**3.2 Workflow Execution**
+Execute each workflow procedure step-by-step and categorize results as:
+- **✓ VERIFIED** - Procedure completed, item is correct and compliant (include supporting details)
+- **⚠ NEEDS REVIEW** - Procedure revealed issue requiring revision (specify what's wrong and how to fix)
+- **? UNABLE TO VERIFY** - Insufficient information in uploaded document to complete procedure
+- **N/A** - Procedure not applicable to this return
+
+Follow the explicit instructions in each workflow step:
+- Perform calculations shown in procedures
+- Apply decision trees and if-then logic
+- Use provided formulas and verification methods
+- Test against Pass/Fail criteria stated in workflow
 
 **3.3 Cross-References & Tie-Outs**
 - Verify numbers tie between related schedules
@@ -130,16 +172,26 @@ Work through each checklist item and categorize as:
 - Validate percentages sum to 100% where required
 
 **3.4 High-Risk Area Deep Dive**
-Pay special attention to common error-prone areas:
-- **1040**: K-1 flow-through items, passive losses, NIIT, AMT
-- **1065**: Capital account reconciliation, liability allocation, basis tracking
-- **1120S**: Reasonable compensation, AAA tracking, basis limitations
+Execute specialized workflow procedures for common error-prone areas:
+- **1040**: 
+  - K-1 box-by-box placement procedure (Step 2.5 in workflow)
+  - Passive activity loss decision tree workflow
+  - NIIT calculation procedure: threshold test → identify NII → calculate 3.8% tax
+  - AMT requirement triggers and verification
+- **1065**: 
+  - Schedule M-2 capital flow verification (beginning → +contributions → +income → -distributions → -losses → ending = Schedule L)
+  - K-1 summation procedure (sum all K-1s for each box must = Schedule K)
+  - Liability allocation workflow (classify recourse vs nonrecourse, apply allocation rules)
+- **1120S**: 
+  - Reasonable compensation calculation (apply all 4 methodologies, use highest)
+  - AAA account step-by-step (can go negative from losses only, not distributions)
+  - 2% shareholder health insurance verification (W-2 Box 1 yes, Boxes 3&5 no)
 
 ---
 
 ### Step 4: Generate Review Report
 
-Provide a comprehensive review report in the following format:
+Provide a comprehensive review report based on workflow execution results in the following format:
 
 ```markdown
 # TAX RETURN REVIEW REPORT
@@ -163,21 +215,54 @@ Provide a comprehensive review report in the following format:
 
 ---
 
-## DETAILED CHECKLIST RESULTS
+## DETAILED WORKFLOW RESULTS
 
-### [Category 1 - e.g., Initial Data Verification]
-- ✓ Taxpayer information verified
-- ✓ Filing status appropriate
-- ⚠ Dependent SSN missing for Child #2 → **ACTION: Obtain SSN before filing**
-- ✓ Prior year carryforwards applied
+### Step 1: Initial Data Verification
+**Procedure 1.1 - Taxpayer Identification:**
+- ✓ VERIFIED: Name "John Smith" present on Form 1040
+- ✓ VERIFIED: SSN format correct (XXX-XX-1234), matches prior year
+- ✓ VERIFIED: Address ties to prior year return
 
-### [Category 2 - e.g., Income Verification]
-- ✓ W-2 wages match (Box 1: $85,000)
-- ⚠ Schedule B not filed despite $2,100 interest income → **ACTION: Complete Schedule B**
-- ✓ K-1 items properly placed
-- ⚠ Self-employment tax not calculated on Schedule C income → **ACTION: Complete Schedule SE**
+**Procedure 1.2 - Filing Status:**
+- ✓ VERIFIED: Married Filing Jointly selected, both spouses present
+- ✓ VERIFIED: Both taxpayer and spouse signatures obtained
 
-[Continue for all applicable categories...]
+**Procedure 1.3 - Dependent Information:**
+- ✓ VERIFIED: Child #1 (Age 8) - SSN present, relationship verified, CTC checkbox correct
+- ⚠ NEEDS REVIEW: Child #2 (Age 14) - SSN missing
+  **Procedure Failed:** Step 1.3, item 2 - "Valid SSN present"
+  **Location:** Form 1040, Dependents section, Child #2
+  **Impact:** Cannot claim Child Tax Credit ($2,000), cannot e-file return
+  **Action:** Obtain SSN for Child #2, update return before filing
+
+### Step 2: Income Verification  
+**Procedure 2.1 - W-2 Reconciliation:**
+- ✓ VERIFIED: W-2 #1 Box 1 ($85,000) + W-2 #2 Box 1 ($0) = Form 1040 Line 1 ($85,000)
+- ✓ VERIFIED: Federal withholding (Box 2: $12,500) = Form 1040 Line 25a
+
+**Procedure 2.2 - Interest & Dividend Income:**
+- ⚠ NEEDS REVIEW: Schedule B required but not filed
+  **Procedure:** Step 2.2 - "Is taxable interest OR ordinary dividends > $1,500?"
+  **Test Result:** Interest income $2,100 > $1,500 threshold
+  **Current:** No Schedule B attached
+  **Should Be:** Schedule B with all sources listed, totaling $2,100
+  **Action:** Complete Schedule B Part I, list all interest sources, total must equal Form 1040 Line 2b
+
+**Procedure 2.3 - Schedule C Business Income:**
+- ✓ VERIFIED: Gross receipts $45,000, expenses $0, net profit $45,000
+- ⚠ NEEDS REVIEW: Schedule SE missing
+  **Procedure:** Step 2.3 - "Is Schedule C net profit > $400?"
+  **Test Result:** Net profit $45,000 > $400 threshold
+  **Calculation:**
+    - Schedule C Line 31: $45,000
+    - × 92.35%: $41,558
+    - × 15.3%: $6,358 self-employment tax
+  **Current:** No Schedule SE filed
+  **Impact:** $6,358 understatement of tax liability
+  **Priority:** CRITICAL
+  **Action:** Complete Schedule SE, flow Line 6 ($6,358) to Schedule 2 Line 4
+
+[Continue for all workflow steps...]
 
 ---
 
@@ -349,67 +434,120 @@ Analyzing uploaded document...
 ✓ Taxpayer: [Name]
 ✓ Schedules detected: C, E, D, SE
 
-Applying Form 1040 comprehensive checklist...
-Reviewing 150+ checklist items...
+Loading Form 1040 workflow procedures (9 steps)...
+Executing Step 1: Initial Data Verification (4 procedures)...
+Executing Step 2: Income Verification (6 procedures)...
+  → Procedure 2.1: W-2 Reconciliation - ✓ VERIFIED
+  → Procedure 2.2: Interest/Dividends - ⚠ ISSUE: Schedule B required ($2,100 > $1,500)
+  → Procedure 2.3: Schedule C - ⚠ ISSUE: Schedule SE missing
+      Calculation: $45,000 × 92.35% × 15.3% = $6,358 SE tax
+[... continues through all 9 steps ...]
 
-[Generates full review report with specific findings]
+Workflow Execution Complete.
 
 Summary: 8 issues identified requiring revision
 - 3 Critical (must fix before filing)
+  1. Schedule SE missing - $6,358 tax understatement
+  2. NIIT not calculated - $950 tax understatement  
+  3. Schedule B required - compliance violation
 - 3 Compliance (should fix)
 - 2 Optimization opportunities
 
-Most significant issue: Schedule SE not completed for Schedule C income ($45,000) - 
-results in $6,358 understatement of self-employment tax.
+Most significant issue: 
+**Procedure 2.3 - Schedule C SE Tax**
+  Test: "Is Schedule C net profit > $400?"
+  Result: $45,000 > $400 ✓ Yes
+  Required: Schedule SE
+  Current: Missing
+  Calculation: $45,000 × 92.35% × 15.3% = $6,358
+  Impact: $6,358 understatement of self-employment tax
+  Action: Complete Schedule SE, flow Line 6 to Schedule 2 Line 4
 ```
 
 ---
 
-## Integration with Workflow
+## How to Use Workflow Procedures
 
-### Optimal Usage Pattern
-1. **Pre-Review**: Run skill before senior reviewer looks at return
-2. **Focused Review**: Senior reviewer addresses flagged items
-3. **Final Check**: Re-run skill after corrections to verify all issues resolved
+### Understanding the Workflow Format
 
-### Time Savings
-- Typical return review time: 30-45 minutes manual
-- Skill review time: 2-3 minutes
-- Allows senior reviewer to focus on judgment calls and planning
+Each workflow consists of **numbered steps** with **explicit procedures**:
 
-### Training Tool
-- Use skill output to train junior staff on common errors
-- Create firm-specific amendments to checklists
-- Track error patterns across firm
+```markdown
+### Step 2.1: W-2 Reconciliation (Line 1)
+**Procedure:**
+1. Locate Line 1 on Form 1040
+2. Count number of W-2s 
+3. For EACH W-2, extract Box 1
+4. Sum all W-2 Box 1 amounts
+5. Verify sum equals Line 1
+
+**Mathematical Check:**
+W-2 #1 Box 1: $______
+W-2 #2 Box 1: $______
+TOTAL: $______ ← Must equal Form 1040 Line 1
+
+**Pass Criteria:** All W-2s accounted for, sum equals Line 1
+**Fail Criteria:** Missing W-2s, math error, mismatch
+```
+
+**Execute each procedure exactly as written**, following the numbered steps and applying the verification tests.
+
+### Integration with Workflow
+
+#### Optimal Usage Pattern
+1. **Initial Review**: Upload return, let skill execute all workflow procedures
+2. **Review Findings**: Examine detailed workflow results with specific procedures that passed/failed
+3. **Focused Verification**: Senior reviewer verifies flagged procedures and applies judgment
+4. **Corrections**: Make corrections following the specific "Action" instructions provided
+5. **Final Verification**: Re-run skill to confirm all procedures now pass
+
+#### Time Savings
+- **Manual workflow review**: 45-60 minutes (following procedures manually)
+- **AI workflow execution**: 2-3 minutes (procedures executed automatically)
+- **Result**: Senior reviewer focuses on judgment calls, complex fact patterns, and planning, not mechanical procedure execution
+
+#### Training Tool
+- **Teach procedures**: Use workflow outputs to show junior staff HOW to perform each verification
+- **Learn from errors**: Each finding shows the procedure, test applied, and why it failed
+- **Build expertise**: Workflows serve as instructional guides for learning tax return review
 
 ---
 
 ## Continuous Improvement
 
-The skill should be updated annually for:
-- Current tax law changes
-- New form revisions
-- Emerging IRS audit focus areas
-- Firm-specific error patterns discovered
-- State tax law updates
+The workflow procedures should be updated annually for:
+- **Tax law changes**: Update procedures to reflect new laws, thresholds, rates
+- **New form revisions**: Modify procedures for form line number changes
+- **Emerging IRS audit focus areas**: Add procedures for newly problematic areas
+- **Firm-specific error patterns**: Customize workflows based on common firm errors discovered
+- **State tax law updates**: Update state-specific procedures and thresholds
+- **Procedure refinements**: Improve clarity and effectiveness of specific verification steps based on usage
 
 ---
 
 ## Limitations & Disclaimers
 
 **This skill provides**:
-- Systematic checklist-based review
-- Common error detection
-- Compliance verification
-- Planning opportunity identification
+- **Systematic workflow-based review** with explicit step-by-step procedures
+- **Mechanical verification** of calculations, tie-outs, and compliance requirements
+- **Common error detection** using proven testing procedures
+- **Procedural guidance** showing HOW to perform each verification
+- **Planning opportunity identification** based on workflow findings
 
 **This skill does NOT replace**:
-- Professional judgment
-- Client-specific fact analysis
-- Complex tax research
-- Legal or audit representation
+- **Professional judgment** on complex fact patterns or gray areas
+- **Client-specific analysis** requiring knowledge of client circumstances beyond the return
+- **Complex tax research** on unusual or novel issues
+- **Legal or audit representation**
+- **Business advisory services**
 
-**Professional responsibility remains with the reviewing CPA.**
+**How to Use**: The workflows execute mechanical review procedures. Professional judgment is still required for:
+- Evaluating reasonableness of items beyond mathematical verification
+- Determining appropriate treatment for unusual transactions
+- Applying facts and circumstances tests
+- Making elections and strategic planning decisions
+
+**Professional responsibility remains with the reviewing CPA.** Workflows are tools to ensure mechanical procedures are performed correctly and consistently.
 
 ---
 
@@ -421,12 +559,20 @@ The skill should be updated annually for:
 3. Verify with secondary indicators (schedules, terminology)
 4. Extract tax year and entity information
 
-### Checklist Application
-1. Load appropriate guideline markdown file
-2. Parse checklist structure
-3. Apply each item to extracted return data
-4. Categorize results (verified/needs review/unable to verify/N/A)
-5. Generate formatted output
+### Workflow Execution
+1. Load appropriate guideline workflow file (1040.md, 1065.md, or 1120S.md)
+2. Parse workflow structure (Steps → Procedures → Verification tests)
+3. Execute each procedure sequentially:
+   - Follow numbered procedural steps
+   - Apply decision trees and if-then logic
+   - Perform calculations per formulas provided
+   - Test results against Pass/Fail criteria
+4. Categorize results (✓ verified / ⚠ needs review / ? unable to verify / N/A)
+5. Generate formatted output with:
+   - Procedure identification (Step X.Y)
+   - Test performed and result
+   - Specific findings with calculations
+   - Action items for corrections
 
 ### Quality Assurance
 - Cross-reference multiple data points for verification
