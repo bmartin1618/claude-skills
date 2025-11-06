@@ -1,0 +1,44 @@
+Review Item,Status,Notes,Workpaper Ref
+All K-1s Received?,Yes,All 4 K-1s in hand,WP-K1
+Basis Calculations Complete?,Yes,See Tab 2,WP-Basis
+Self-Rental Analysis Done?,Yes,GHI rental to ABC analyzed,WP-SR
+Material Participation Documented?,Yes,Hour logs maintained,WP-Hours
+PAL Tracking Updated?,Yes,$40k suspended,WP-PAL
+QBI Optimization Reviewed?,Yes,Loss carryforward $60k,WP-QBI
+State Modifications Applied?,Yes,See Tab 6,WP-State
+PTE Elections Considered?,Partial,OH and IN elected,WP-PTE
+Prior Suspensions Applied?,Yes,$25k PAL from prior,WP-CF
+Grouping Elections Consistent?,Yes,No grouping currently,WP-Group
+,,,
+CARRYFORWARD TRACKING,,,
+Type,Entity,Amount,Year Generated,Notes
+Basis Suspension,ABC Operating LLC,0,2024,Sufficient basis
+At-Risk Suspension,DEF Properties LP,0,2024,No at-risk issues
+Passive Loss,GHI Real Estate LLC,-40000,2024,Insufficient passive income
+QBI Loss,ABC Operating LLC,-60000,2024,Carries to 2025
+Capital Loss,N/A,0,2024,None
+NOL,N/A,0,2024,None
+,,,
+PLANNING NOTES,,,
+Item,Current Treatment,Alternative,Potential Savings
+Self-Rental Grouping,Not grouped,Group GHI with ABC,Unlock $20k loss = $7.4k tax
+QBI Aggregation,Separate,Aggregate eligible,Better wage limitation
+OH PTE,Elected,Continue,Saves $2.2k federal
+KY PTE,Not elected,Consider for 2025,Could save $2.2k
+,,,
+OPEN ITEMS,,,
+Item,Needed From,Due Date,Status
+Final K-1 from MNO Fund,Investment advisor,3/1/2025,Pending
+Reasonable comp analysis,Payroll dept,2/15/2025,In process
+OH CAT return,State team,5/10/2025,Not started
+,,,
+FINAL REVIEW SIGNOFF,,,
+Review Step,Completed By,Date,Time (minutes)
+Initial K-1 Entry,Staff 1,2/10/2025,45
+Basis Calculations,Senior 1,2/11/2025,30
+Character Determination,Senior 1,2/11/2025,20
+Loss Limitations,Senior 2,2/12/2025,25
+QBI Calculation,Manager,2/13/2025,15
+State Modifications,Senior 2,2/13/2025,20
+Final Review,Partner,2/14/2025,15
+Partner Approval,,,

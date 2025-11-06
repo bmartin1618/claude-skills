@@ -1,0 +1,26 @@
+Entity,Federal Box 1,OH Bonus Add,OH Modified,IN Adjustment,IN Modified,KY Adjustment,KY Modified
+ABC Operating LLC,-50000,8333,=B2+C2,5000,=B2+E2,0,=B2+G2
+DEF Properties LP,30000,0,=B3+C3,0,=B3+E3,0,=B3+G3
+GHI Real Estate LLC,-20000,3333,=B4+C4,2000,=B4+E4,-1750,=B4+G4
+JKL Holdings S Corp,15000,2500,=B5+C5,1500,=B5+E5,0,=B5+G5
+,,,,,,,,
+MULTI-STATE APPORTIONMENT,,,,,,,,
+Entity,Total Income,OH %,OH Income,IN %,IN Income,KY %,KY Income,
+ABC Operating LLC,-50000,33.75%,=B8*C8,25%,=B8*E8,20%,=B8*G8,
+DEF Properties LP,30000,100%,=B9*C9,0%,=B9*E9,0%,=B9*G9,
+GHI Real Estate LLC,-20000,100%,=B10*C10,0%,=B10*E10,0%,=B10*G10,
+JKL Holdings S Corp,15000,30%,=B11*C11,40%,=B11*E11,30%,=B11*G11,
+,,,,,,,,
+STATE FILING REQUIREMENTS,,,,,,,,
+Entity,OH Nexus?,OH Filing?,IN Nexus?,IN Filing?,KY Nexus?,KY Filing?,Composite?
+ABC Operating LLC,Yes,Required,Yes,Required,Yes,Required,Consider
+DEF Properties LP,Yes,Required,No,No,No,No,N/A
+GHI Real Estate LLC,Yes,Required,No,No,Yes,LLET Only,N/A
+JKL Holdings S Corp,Yes,Required,Yes,Required,Yes,Required,N/A
+,,,,,,,,
+PTE TAX ELECTIONS,,,,,,,,
+Entity,OH PET Elected?,OH PET Tax,IN PTET Elected?,IN PTET Tax,KY PTE Elected?,KY PTE Tax,Total PTE Tax,Federal Benefit
+ABC Operating LLC,Yes,=IF(B22="Yes";D8*0.05;0),Yes,=IF(D22="Yes";F8*0.049;0),No,=IF(F22="Yes";H8*0.05;0),=C22+E22+G22,=H22*0.22
+DEF Properties LP,No,=IF(B23="Yes";D9*0.05;0),No,=IF(D23="Yes";F9*0.049;0),No,=IF(F23="Yes";H9*0.05;0),=C23+E23+G23,=H23*0.22
+GHI Real Estate LLC,No,=IF(B24="Yes";D10*0.05;0),No,=IF(D24="Yes";F10*0.049;0),No,=IF(F24="Yes";H10*0.05;0),=C24+E24+G24,=H24*0.22
+JKL Holdings S Corp,Yes,=IF(B25="Yes";D11*0.05;0),Yes,=IF(D25="Yes";F11*0.049;0),Yes,=IF(F25="Yes";H11*0.05;0),=C25+E25+G25,=H25*0.22

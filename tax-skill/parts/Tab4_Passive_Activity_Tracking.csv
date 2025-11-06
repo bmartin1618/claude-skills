@@ -1,0 +1,23 @@
+Entity Name,Test 1 (500hr),Test 2 (All),Test 3 (>100),Test 4 (Sig),Test 5 (5/10),Test 6 (Personal),Test 7 (Facts),Material Part?,Character
+ABC Operating LLC,Pass,No,No,No,Yes,No,No,=IF(OR(B2="Pass";C2="Pass";D2="Pass";E2="Pass";F2="Pass";G2="Pass";H2="Pass");"YES";"NO"),=IF(I2="YES";"Non-Passive";"Passive")
+DEF Properties LP,No,No,No,No,No,No,No,=IF(OR(B3="Pass";C3="Pass";D3="Pass";E3="Pass";F3="Pass";G3="Pass";H3="Pass");"YES";"NO"),=IF(I3="YES";"Non-Passive";"Passive")
+GHI Real Estate LLC,No,No,No,No,No,No,No,=IF(OR(B4="Pass";C4="Pass";D4="Pass";E4="Pass";F4="Pass";G4="Pass";H4="Pass");"YES";"NO"),=IF(I4="YES";"Non-Passive";"Passive")
+JKL Holdings S Corp,Pass,No,No,No,Yes,No,No,=IF(OR(B5="Pass";C5="Pass";D5="Pass";E5="Pass";F5="Pass";G5="Pass";H5="Pass");"YES";"NO"),=IF(I5="YES";"Non-Passive";"Passive")
+,,,,,,,,,,
+HOUR TRACKING,,,,,,,,,,
+Entity,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec,Total Hours,Test Met?
+ABC Operating LLC,45,50,48,42,45,44,43,45,42,48,45,53,=SUM(B8:M8),=IF(N8>=500;"Test 1";IF(N8>=100;"Check Test 3";"No"))
+DEF Properties LP,0,0,0,0,0,5,0,0,0,0,5,0,=SUM(B9:M9),=IF(N9>=500;"Test 1";IF(N9>=100;"Check Test 3";"No"))
+GHI Real Estate LLC,2,2,2,2,2,2,2,2,2,2,2,2,=SUM(B10:M10),=IF(N10>=500;"Test 1";IF(N10>=100;"Check Test 3";"No"))
+JKL Holdings S Corp,40,45,42,45,43,44,45,42,45,43,42,44,=SUM(B11:M11),=IF(N11>=500;"Test 1";IF(N11>=100;"Check Test 3";"No"))
+,,,,,,,,,,,,,,
+PASSIVE INCOME/LOSS MATCHING,,,,,,,,,,,,,,
+Passive Income Sources,Amount,Available for Offset,,,,,,,,,,,,
+DEF Properties LP,30000,30000,,,,,,,,,,,,
+Other Passive Income,0,0,,,,,,,,,,,,
+Total Passive Income,30000,30000,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+Passive Losses,Current Year,Prior Suspended,Total Available,Used Current Year,Suspended to Next,,,,,,,,
+GHI Real Estate LLC,-20000,-15000,-35000,=MIN(-D20;C17),-30000,,,,,,,,
+Other Passive Losses,0,-10000,-10000,0,-10000,,,,,,,,
+Total,,-25000,,,-40000,,,,,,,,
